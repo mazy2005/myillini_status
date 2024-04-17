@@ -279,11 +279,11 @@ print("Please input Username and Password for myillini."+"\n"*3)
 username=input("Username:")
 pwd=input("Password:")
 myinterval=input("Interval:")
-myinterval=max(myinterval,5)
+myint=max(int(myinterval),5)
 login_data=login(username,pwd)
 check_status(login_data)
 
-schedule.every(eval(myinterval)).minutes.do(check_status,login_data)
+schedule.every(eval(myint)).minutes.do(check_status,login_data)
 
 while True:
     schedule.run_pending()
