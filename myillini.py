@@ -20,7 +20,6 @@ def formatted_date():
     return formatted_date_str
 
 def login(username, password):
-    # URL and headers
     url = 'https://enroll.illinois.edu/ping'
     headers = {
         'sec-ch-ua': '"Google Chrome";v="123", "Not:A-Brand";v="8", "Chromium";v="123"',
@@ -171,7 +170,7 @@ def login(username, password):
     if cookie_header:
         matches = re.findall(r'.myIlliniCRToken=([^;]+)', cookie_header)
         if matches:
-            myillini_cr_token = matches[0]  # Assumes the first match is the required token
+            myillini_cr_token = matches[0]
             #print("Extracted CR Token:", myillini_cr_token)
         else:
             print("CR Token not found.")
@@ -245,11 +244,8 @@ def check_status(login_token):
     status_tag = None
     status_text = "Status not found"
     status_keywords = ["Denial", "Accepted", "Complete", "YOU'RE"]
-
-    # Manually searching through all text in the HTML
     found_statuses = []
 
-    # Iterate over each element returned by find_all
     for element in soup.find_all(string=True):  # Finds all text nodes
         element_text = element.strip()  # Clean up the text
         if element_text:  # Make sure the text is not empty
@@ -259,7 +255,6 @@ def check_status(login_token):
                     # If keyword found, append (keyword, full text of the node) to results
                     found_statuses.append((keyword, element_text))
 
-    # Print all found statuses
     for status, text in found_statuses:            
         print(f"Application Status: '{text}'")
         if text!="Complete":
@@ -283,7 +278,7 @@ myint=max(int(myinterval),5)
 login_data=login(username,pwd)
 check_status(login_data)
 
-schedule.every(eval(myint)).minutes.do(check_status,login_data)
+schedule.every(myint).minutes.do(check_status,login_data)
 
 while True:
     schedule.run_pending()
