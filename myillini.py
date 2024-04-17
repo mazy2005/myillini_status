@@ -279,7 +279,7 @@ print("Please input Username and Password for myillini."+"\n"*3)
 username=input("Username:")
 pwd=input("Password:")
 myinterval=input("Interval:")
-#myinterval=max(myinterval,5)
+myinterval=max(myinterval,5)
 login_data=login(username,pwd)
 check_status(login_data)
 
